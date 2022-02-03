@@ -83,10 +83,10 @@ for order in orders:
     # Label each spectrum with date and SNR, in order of which one came first.
 
     # calculate max and min wl for this order
-    wl_min = np.min(wls[:,order])
-    wl_max = np.max(wls[:,order])
-    fl_min = np.min(fls[:,order])
-    fl_max = np.max(fls[:,order])
+    wl_min = np.nanmin(wls[:,order])
+    wl_max = np.nanmax(wls[:,order])
+    fl_min = np.nanmin(fls[:,order])
+    fl_max = np.nanmax(fls[:,order])
     wl_range = (wl_max - wl_min)
     fl_range = (fl_max - fl_min)
 
@@ -113,7 +113,7 @@ for order in orders:
         # now make labels in this color
 
         date = dates[i] - 2400000 # JD
-        SNR = np.median(fls[i,order,:] / sigmas[i,order,:])
+        SNR = np.nanmedian(fls[i,order,:] / sigmas[i,order,:])
 
         ax.annotate("{:.1f}".format(date), (x0_annotate, 1 + (pedastal - offset * i)), color=color, ha="center", va="center", size=8)
         ax.annotate("{:.0f}".format(SNR), (x1_annotate, 1 + (pedastal - offset * i)), color=color, ha="center", va="center", size=8)
